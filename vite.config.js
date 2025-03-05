@@ -10,4 +10,9 @@ export default defineConfig({
         }),
         tailwindcss(),
     ],
+    resolve: {
+        alias: {
+            '~bootstrap': 'node_modules/bootstrap',
+        }
+    },
 });
