@@ -11,10 +11,11 @@
     <h1>Meu Header</h1>
 </header>
 <main>
+    @stack('scripts')
     @yield('content')
 </main>
 <footer>
-    <p>Essential Group &copy; {{ date('Y') }}</p>
+    <p>Essentia Group &copy; {{ date('Y') }}</p>
 </footer>
 </body>
 </html>

@@ -13,4 +13,9 @@ class ClientController extends Controller
 
         return view('pages.client.list', compact('clients'));
     }
+
+    public function show(Client $client)
+    {
+        return response()->json($client);
+    }
 }
