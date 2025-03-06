@@ -95,6 +95,7 @@
                             <input type="text"
                                    class="form-control @error('phone') is-invalid @enderror"
                                    id="phone"
+                                   maxlength="15"
                                    wire:model="phone"
                                    @if($isViewing) disabled @endif
                             >
@@ -164,6 +165,17 @@
                         document.getElementById('alert-inserted').remove();
                         Livewire.dispatch('resetMessage');
                     }, 1000);
+                });
+            });
+
+            document.addEventListener('livewire:initialized', function () {
+                new Cleave('#phone', {
+                        blocks: [0, 2, 5, 4],
+                        delimiters: ['(', ') ', '-'],
+                        numericOnly: true,
+                        onValueChanged: function (e) {
+                        @this.set('phone', e.target.value);
+                    }
                 });
             });
         </script>
