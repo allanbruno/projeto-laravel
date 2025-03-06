@@ -12,7 +12,10 @@ class DeleteConfirmation extends Component
     public $clientName;
     public $message;
 
-    protected $listeners = ['confirmDelete' => 'openModal'];
+    protected $listeners = [
+        'confirmDelete' => 'openModal',
+        'resetMessage' => 'resetMessage'
+    ];
 
     public function render()
     {
@@ -50,5 +53,9 @@ class DeleteConfirmation extends Component
         } catch (\Exception $e) {
             $this->message = 'Erro ao excluir cliente: ' . $e->getMessage();
         }
+    }
+
+    public function resetMessage() {
+        $this->message = null;
     }
 }

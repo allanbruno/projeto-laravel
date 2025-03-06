@@ -41,6 +41,7 @@
 
                 setTimeout(function () {
                     document.getElementById('alert-deleted').remove();
+                    Livewire.dispatch('resetMessage');
                 }, 1000);
             }
         });
