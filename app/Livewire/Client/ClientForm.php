@@ -21,7 +21,8 @@ class ClientForm extends Component
 
     protected $listeners = [
         'edit-client' => 'editClient',
-        'view-client' => 'viewClient'
+        'view-client' => 'viewClient',
+        'resetMessage' => 'resetMessage'
     ];
 
     protected function rules()
@@ -42,7 +43,6 @@ class ClientForm extends Component
 
     public function openModal($clientId = null)
     {
-        $this->message = null;
         $this->resetForm();
 
         if ($clientId) {
@@ -118,5 +118,9 @@ class ClientForm extends Component
         $this->status = 'active';
         $this->errorMessage = null;
         $this->resetValidation();
+    }
+
+    public function resetMessage() {
+        $this->message = null;
     }
 }

@@ -130,13 +130,10 @@
                 Livewire.on('closeModal', () => {
                     modal.hide();
 
-                    setTimeout(function () {
+                    setTimeout(() => {
                         document.getElementById('alert-inserted').remove();
+                        Livewire.dispatch('resetMessage');
                     }, 1000);
-                });
-
-                Livewire.on('save-error', () => {
-                    console.log('Erro ao salvar cliente');
                 });
             });
         </script>
