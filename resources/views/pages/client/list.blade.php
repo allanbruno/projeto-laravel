@@ -9,5 +9,6 @@
             <livewire:client.client-form />
         </div>
         <livewire:client.client-table />
+        <livewire:client.delete-confirmation />
     </div>
 @endsection

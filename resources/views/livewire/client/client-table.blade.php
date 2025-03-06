@@ -47,7 +47,7 @@
                                     <button type="button"
                                             class="btn btn-sm"
                                             title="Excluir"
-                                            onclick="confirm('Tem certeza?') || event.stopImmediatePropagation()">
+                                            wire:click="$dispatch('confirmDelete', [{{ $client->id }}])">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </div>
