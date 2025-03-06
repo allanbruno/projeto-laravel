@@ -4,15 +4,21 @@ namespace App\Livewire\Client;
 
 use App\Models\Client;
 use Livewire\Component;
+use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Storage;
 
 class ClientForm extends Component
 {
+    use WithFileUploads;
+
     public $clientId;
     public $name;
     public $email;
     public $phone;
     public $address;
     public $status = 'active';
+    public $image;
+    public $oldImage;
     public $isOpen = false;
     public $message;
     public $errorMessage;
@@ -33,6 +39,7 @@ class ClientForm extends Component
             'phone' => 'required|string|max:20',
             'address' => 'required|string|max:255',
             'status' => 'required|in:active,inactive',
+            'image' => $this->isEditing ? 'nullable|image|max:1024' : 'required|image|max:1024',
         ];
     }
 
@@ -63,12 +70,22 @@ class ClientForm extends Component
         $this->phone = $client->phone;
         $this->address = $client->address;
         $this->status = $client->status;
+        $this->oldImage = $client->image;
     }
 
     public function save()
     {
         try {
             $validated = $this->validate();
+
+            if ($this->image) {
+                $imagePath = $this->image->store('clients', 'public');
+                $validated['image'] = $imagePath;
+
+                if ($this->isEditing && $this->oldImage) {
+                    Storage::disk('public')->delete($this->oldImage);
+                }
+            }
 
             if ($this->isEditing) {
                 $client = Client::findOrFail($this->clientId);
@@ -116,7 +133,7 @@ class ClientForm extends Component
 
     private function resetForm()
     {
-        $this->reset(['clientId', 'name', 'email', 'address', 'phone', 'isEditing', 'isViewing']);
+        $this->reset(['clientId', 'name', 'email', 'address', 'phone', 'image', 'oldImage', 'isEditing', 'isViewing']);
         $this->status = 'active';
         $this->errorMessage = null;
         $this->resetValidation();

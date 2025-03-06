@@ -28,6 +28,36 @@
                     </div>
                     <div class="modal-body">
                         <div class="mb-3">
+                            <label for="image" class="form-label">Foto do Cliente</label>
+                            <input type="file"
+                                   class="form-control @error('image') is-invalid @enderror"
+                                   id="image"
+                                   wire:model="image"
+                                   accept="image/*"
+                                   @if($isViewing) disabled @endif
+                            >
+                            @error('image')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                            <div class="mt-2">
+                                @if ($image)
+                                    <img src="{{ $image->temporaryUrl() }}"
+                                         class="img-thumbnail"
+                                         style="max-height: 100px"
+                                         alt="Preview da nova imagem"
+                                    >
+                                @elseif ($oldImage)
+                                    <img src="{{ Storage::url($oldImage) }}"
+                                         class="img-thumbnail"
+                                         style="max-height: 100px"
+                                         alt="Imagem atual"
+                                    >
+                                @else
+                                    <p class="text-muted">Nenhuma imagem selecionada</p>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="mb-3">
                             @if ($errorMessage)
                                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                     {{ $errorMessage }}
