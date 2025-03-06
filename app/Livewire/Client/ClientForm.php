@@ -67,8 +67,6 @@ class ClientForm extends Component
 
     public function save()
     {
-        logger('Método save iniciado');
-
         try {
             $validated = $this->validate();
 
@@ -77,7 +75,7 @@ class ClientForm extends Component
                 $client->update($validated);
                 $this->message = 'Cliente atualizado com sucesso!';
             } else {
-                $client = Client::create($validated);
+                Client::create($validated);
                 $this->message = 'Cliente cadastrado com sucesso!';
             }
 
@@ -86,7 +84,11 @@ class ClientForm extends Component
             $this->dispatch('client-list-updated');
 
         } catch (\Exception $e) {
-            $this->errorMessage = 'Erro ao ' . ($this->isEditing ? 'atualizar' : 'cadastrar') . ' cliente: ' . $e->getMessage();
+            $this->errorMessage =
+                'Erro ao ' .
+                ($this->isEditing ? 'atualizar' : 'cadastrar')
+                . ' cliente: '
+                . ' Verifique se os campos estão corretos.';
             $this->dispatch('save-error');
         }
     }
