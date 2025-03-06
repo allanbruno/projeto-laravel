@@ -8,10 +8,13 @@
 </head>
 <body>
 <header>
+    @livewireStyles
     <h1>Meu Header</h1>
 </header>
 <main>
     @stack('scripts')
+    @livewireScripts
+
     @yield('content')
 </main>
 <footer>

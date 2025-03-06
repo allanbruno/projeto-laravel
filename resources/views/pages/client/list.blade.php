@@ -6,13 +6,18 @@
     <div class="container py-4">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h1>Clientes</h1>
-            <button type="button"
-                    class="btn btn-primary open-modal"
-                    data-bs-toggle="modal"
-                    data-bs-target="#clienteModal">
-                <i class="fas fa-plus"></i> Novo Cliente
-            </button>
+            <livewire:client.client-form />
         </div>
+        @if (session()->has('message'))
+            <div class="alert alert-success">
+                {{ session('message') }}
+            </div>
+        @endif
+        @if (session()->has('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
         <div class="card">
             <div class="card-body">
                 <form action="{{ route('client.index') }}" method="GET" class="mb-4">
@@ -94,19 +99,5 @@
                 </div>
             </div>
         </div>
-        @include('pages.client.partials.modal')
     </div>
 @endsection
-
-@push('scripts')
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const modalElement = document.getElementById('clienteModal');
-            const modal = new bootstrap.Modal(modalElement);
-
-            document.querySelector('.open-modal').addEventListener('click', function() {
-                modal.show();
-            });
-        });
-    </script>
-@endpush
