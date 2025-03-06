@@ -1,4 +1,12 @@
 <div>
+    @if ($message)
+        <div id="alert-inserted" class="alert alert-success alert-dismissible fade show position-fixed top-10 start-50 translate-middle"
+             role="alert" style="z-index: 1050;"
+        >
+            {{ $message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
     <button type="button" class="btn btn-primary" wire:click="openModal">
         <i class="fas fa-plus"></i> Novo Cliente
     </button>
@@ -13,6 +21,15 @@
                         <button type="button" class="btn-close" wire:click="closeModal"></button>
                     </div>
                     <div class="modal-body">
+                        <div class="mb-3">
+                            @if ($errorMessage)
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    {{ $errorMessage }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                            aria-label="Close"></button>
+                                </div>
+                            @endif
+                        </div>
                         <div class="mb-3">
                             <label for="name" class="form-label">Nome</label>
                             <input type="text"
@@ -43,6 +60,17 @@
                                    wire:model="phone"
                             >
                             @error('phone')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Endereço</label>
+                            <input type="text"
+                                   class="form-control @error('address') is-invalid @enderror"
+                                   id="address"
+                                   wire:model="address"
+                            >
+                            @error('address')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
@@ -85,7 +113,15 @@
                 });
 
                 Livewire.on('closeModal', () => {
-                   modal.hide();
+                    modal.hide();
+
+                    setTimeout(function () {
+                        document.getElementById('alert-inserted').remove();
+                    }, 1000);
+                });
+
+                Livewire.on('save-error', () => {
+                    console.log('Erro ao salvar cliente');
                 });
             });
         </script>
