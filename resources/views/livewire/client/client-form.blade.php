@@ -18,7 +18,11 @@
                 <form wire:submit="save">
                     <div class="modal-header">
                         <h5 class="modal-title">
-                            {{ $isEditing ? 'Editar Cliente' : 'Cadastrar Cliente' }}
+                            @if($isViewing)
+                                Visualizar Cliente
+                            @else
+                                {{ $isEditing ? 'Editar Cliente' : 'Cadastrar Cliente' }}
+                            @endif
                         </h5>
                         <button type="button" class="btn-close" wire:click="closeModal"></button>
                     </div>
@@ -38,6 +42,7 @@
                                    class="form-control @error('name') is-invalid @enderror"
                                    id="name"
                                    wire:model="name"
+                                   @if($isViewing) disabled @endif
                             >
                             @error('name')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -49,6 +54,7 @@
                                    class="form-control @error('email') is-invalid @enderror"
                                    id="email"
                                    wire:model="email"
+                                   @if($isViewing) disabled @endif
                             >
                             @error('email')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -60,6 +66,7 @@
                                    class="form-control @error('phone') is-invalid @enderror"
                                    id="phone"
                                    wire:model="phone"
+                                   @if($isViewing) disabled @endif
                             >
                             @error('phone')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -71,6 +78,7 @@
                                    class="form-control @error('address') is-invalid @enderror"
                                    id="address"
                                    wire:model="address"
+                                   @if($isViewing) disabled @endif
                             >
                             @error('address')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -80,7 +88,9 @@
                             <label for="status" class="form-label">Status</label>
                             <select class="form-select @error('status') is-invalid @enderror"
                                     id="status"
-                                    wire:model="status">
+                                    wire:model="status"
+                                    @if($isViewing) disabled @endif
+                            >
                                 <option value="active">Ativo</option>
                                 <option value="inactive">Inativo</option>
                             </select>
@@ -92,12 +102,15 @@
                     <div class="modal-footer">
                         <button type="button"
                                 class="btn btn-secondary"
-                                wire:click="closeModal">
+                                wire:click="closeModal"
+                        >
                             <i class="fas fa-times"></i> Cancelar
                         </button>
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-save"></i> Salvar
-                        </button>
+                        @unless($isViewing)
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> {{ $isEditing ? 'Atualizar' : 'Salvar' }}
+                            </button>
+                        @endunless
                     </div>
                 </form>
             </div>

@@ -32,11 +32,12 @@
                             <td>{!! $client->status_badge !!}</td>
                             <td>
                                 <div class="btn-group">
-                                    <a href="#"
-                                       class="btn btn-sm"
-                                       title="Visualizar">
+                                    <button type="button"
+                                            class="btn btn-sm"
+                                            title="Visualizar"
+                                            wire:click="$dispatch('view-client', [{{ $client->id }}])">
                                         <i class="fas fa-eye"></i>
-                                    </a>
+                                    </button>
                                     <button type="button"
                                             class="btn btn-sm"
                                             wire:click="$dispatch('edit-client', [{{ $client->id }}])"

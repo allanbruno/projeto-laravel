@@ -17,8 +17,12 @@ class ClientForm extends Component
     public $message;
     public $errorMessage;
     public $isEditing = false;
+    public $isViewing = false;
 
-    protected $listeners = ['edit-client' => 'editClient'];
+    protected $listeners = [
+        'edit-client' => 'editClient',
+        'view-client' => 'viewClient'
+    ];
 
     protected function rules()
     {
@@ -92,6 +96,15 @@ class ClientForm extends Component
         $this->openModal($clientId);
     }
 
+    public function viewClient($clientId)
+    {
+        $this->loadClient($clientId);
+        $this->isViewing = true;
+        $this->isEditing = false;
+        $this->dispatch('openModal');
+        $this->isOpen = true;
+    }
+
     public function closeModal()
     {
         $this->dispatch('closeModal');
@@ -101,7 +114,7 @@ class ClientForm extends Component
 
     private function resetForm()
     {
-        $this->reset(['clientId', 'name', 'email', 'address', 'phone', 'isEditing']);
+        $this->reset(['clientId', 'name', 'email', 'address', 'phone', 'isEditing', 'isViewing']);
         $this->status = 'active';
         $this->errorMessage = null;
         $this->resetValidation();
