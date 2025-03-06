@@ -40,6 +40,7 @@
                                     </button>
                                     <button type="button"
                                             class="btn btn-sm"
+                                            title="Editar"
                                             wire:click="$dispatch('edit-client', [{{ $client->id }}])"
                                     >
                                         <i class="fas fa-edit"></i>
