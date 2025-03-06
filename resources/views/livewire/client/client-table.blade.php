@@ -37,11 +37,12 @@
                                        title="Visualizar">
                                         <i class="fas fa-eye"></i>
                                     </a>
-                                    <a href="#"
-                                       title="Editar"
-                                       class="btn btn-sm">
+                                    <button type="button"
+                                            class="btn btn-sm"
+                                            wire:click="$dispatch('edit-client', [{{ $client->id }}])"
+                                    >
                                         <i class="fas fa-edit"></i>
-                                    </a>
+                                    </button>
                                     <button type="button"
                                             class="btn btn-sm"
                                             title="Excluir"

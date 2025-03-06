@@ -17,7 +17,9 @@
             <div class="modal-content">
                 <form wire:submit="save">
                     <div class="modal-header">
-                        <h5 class="modal-title">Cadastrar Cliente</h5>
+                        <h5 class="modal-title">
+                            {{ $isEditing ? 'Editar Cliente' : 'Cadastrar Cliente' }}
+                        </h5>
                         <button type="button" class="btn-close" wire:click="closeModal"></button>
                     </div>
                     <div class="modal-body">
