@@ -9,7 +9,12 @@
 <body>
 <header>
     @livewireStyles
-    <h1>Meu Header</h1>
+    <div class="container d-flex justify-content-center align-items-center mt-3">
+        <img src="https://essentiagroup.global/static/media/ho.a335e8fe9332bf2d7218c9e8a3128627.svg"
+             alt="Imagem Centralizada"
+             class="img-fluid"
+        >
+    </div>
 </header>
 <main>
     @stack('scripts')
@@ -18,7 +23,9 @@
     @yield('content')
 </main>
 <footer>
-    <p>Essentia Group &copy; {{ date('Y') }}</p>
+    <div class="container">
+        <p>Essentia Group &copy; {{ date('Y') }}</p>
+    </div>
 </footer>
 </body>
 </html>
