@@ -10,6 +10,8 @@ class ClientTable extends Component
 {
     use WithPagination;
 
+    protected $paginationTheme = 'bootstrap';
+
     protected $listeners = ['client-list-updated' => '$refresh'];
 
     public $search = '';
